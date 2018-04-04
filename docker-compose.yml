@@ -10,12 +10,8 @@ services:
     networks:
       - big-network
     volumes:
-      - /home/osf/mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
+      - ./mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf
     restart: always
-    deploy:
-      mode: global
-      restart_policy:
-        condition: any
 
   nginx-http-proxy:
     image: hub.foundries.io/nginx:latest
@@ -31,12 +27,8 @@ services:
     extra_hosts:
       - "mgmt.foundries.io:192.168.0.50"
     volumes:
-      - /home/osf/nginx-http-proxy.conf:/etc/nginx/nginx.conf
+      - ./nginx-http-proxy.conf:/etc/nginx/nginx.conf
     restart: always
-    deploy:
-      mode: global
-      restart_policy:
-        condition: any
 
   bt-joiner:
     image: hub.foundries.io/bt-joiner:latest
@@ -45,16 +37,12 @@ services:
     read_only: true
     privileged: true
     volumes:
-      - /home/osf/bluetooth_6lowpand.conf:/etc/bluetooth/bluetooth_6lowpand.conf
+      - ./bluetooth_6lowpand.conf:/etc/bluetooth/bluetooth_6lowpand.conf
     tmpfs:
       - /run
       - /var/lock
       - /var/log
       - /var/run
-    deploy:
-      mode: global
-      restart_policy:
-        condition: any
 
   nginx-coap-proxy:
     image: hub.foundries.io/nginx:latest
@@ -75,12 +63,8 @@ services:
     networks:
       - big-network
     volumes:
-      - /home/osf/nginx-lwm2m.conf:/etc/nginx/nginx.conf
+      - ./nginx-lwm2m.conf:/etc/nginx/nginx.conf
     restart: always
-    deploy:
-      mode: global
-      restart_policy:
-        condition: any
 
   californium-coap-http-proxy:
     image: hub.foundries.io/cf-proxy-coap-http:latest
@@ -90,10 +74,6 @@ services:
     networks:
       - big-network
     restart: always
-    deploy:
-      mode: global
-      restart_policy:
-        condition: any
 
 networks:
   big-network:
