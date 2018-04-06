@@ -10,6 +10,4 @@ RUN apk add --no-cache py-pip docker git bash curl
 
 RUN pip install docker-compose
 
-ENTRYPOINT ["/usr/bin/run.sh"]
-
 COPY *.yml /
