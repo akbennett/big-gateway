@@ -8,6 +8,7 @@ arch=""
 [ `arch` == x86_64 ] && arch="-amd64"
 
 # create_and_push_manifest
+# this function attempts to brute-force push the manifest
 function create_and_push_manifest {
     ACCOUNT=$1
     D=$2
@@ -49,7 +50,7 @@ create_and_push_manifest ${ACCOUNT:-opensourcefoundries} "docker-compose"
 for D in simple*
 do
     pushd $D
-    echo
+
     docker build -t ${ACCOUNT:-opensourcefoundries}/$D:latest$arch --force-rm .
     docker push ${ACCOUNT:-opensourcefoundries}/$D:latest$arch
 
