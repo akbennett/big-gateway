@@ -45,6 +45,8 @@ docker manifest create --amend \
 # push the manifest that won the battle
 docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest
 
+echo "Build Completed, multiarch images found for: "
+docker manifest inspect ${ACCOUNT:-opensourcefoundries}/$D:latest | grep architecture
 
 #Once you build a docker file for each architecture, you can add a manifest
 #manifest-tool-darwin-amd64 \
