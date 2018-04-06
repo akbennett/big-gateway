@@ -14,34 +14,31 @@ function create_and_push_manifest {
     # create a manifest for atleast 1 image
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest$arch
+            ${ACCOUNT:-opensourcefoundries}/$D:latest$arch > /dev/null 2>&1
 
     # create a manifest for atleast 2 images
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64 > /dev/null 2>&1
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm > /dev/null 2>&1
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64 > /dev/null 2>&1
 
     # create a manifest for atleast 2 images
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm > /dev/null 2>&1
 
     # push the manifest that won the battle
-    docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest
-
-    echo "Build Completed, multiarch images found for: "
-    docker manifest inspect ${ACCOUNT:-opensourcefoundries}/$D:latest | grep architecture
+    docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest > /dev/null 2>&1
 
 }
 # build docker compose with the local yml files
