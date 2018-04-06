@@ -2,7 +2,7 @@ FROM alpine:latest
 
 MAINTAINER Ricardo Salveti "ricardo@opensourcefoundries.com"
 
-RUN apk add --no-cache bluez bluez-btmon bluez-meshctl py-dbus py-gobject3
+RUN apk add --no-cache bluez-deprecated bluez bluez-btmon bluez-meshctl py-dbus py-gobject3
 
 # BT 6lowpan joiner
 RUN mkdir -p /etc/bluetooth/6lowpand/

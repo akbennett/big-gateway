@@ -22,8 +22,6 @@ services:
       - "8080:8080"
     networks:
       - big-network
-    extra_hosts:
-      - "mgmt.foundries.io:192.168.0.50"
     restart: always
 
   bt-joiner:
@@ -47,8 +45,6 @@ services:
     read_only: true
     ports:
       - "8080:8080"
-    extra_hosts:
-      - "mgmt.foundries.io:192.168.0.50"
     ports:
       - "5683:5683/udp"
       - "5684:5684/udp"
