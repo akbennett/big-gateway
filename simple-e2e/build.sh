@@ -16,6 +16,36 @@ do
     popd
 done
 
+# create a manifest for atleast 1 image
+docker manifest create --amend \
+    ${ACCOUNT:-opensourcefoundries}/$D:latest \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest$arch
+
+# create a manifest for atleast 2 images
+docker manifest create --amend \
+    ${ACCOUNT:-opensourcefoundries}/$D:latest \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64
+docker manifest create --amend \
+    ${ACCOUNT:-opensourcefoundries}/$D:latest \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
+docker manifest create --amend \
+    ${ACCOUNT:-opensourcefoundries}/$D:latest \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64
+
+# create a manifest for atleast 2 images
+docker manifest create --amend \
+    ${ACCOUNT:-opensourcefoundries}/$D:latest \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64 \
+        ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
+
+# push the manifest that won the battle
+docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest
+
+
 #Once you build a docker file for each architecture, you can add a manifest
 #manifest-tool-darwin-amd64 \
 #        --username $USER --password $PASSWORD push from-args \
