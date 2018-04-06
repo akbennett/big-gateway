@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-arch=""
+arch="bogus"
 [ `arch` == i386 ] && arch="-amd64"
 [ `arch` == aarch64 ] && arch="-arm64"
 [ `arch` == armhf ] && arch="-arm"
@@ -15,31 +15,31 @@ function create_and_push_manifest {
     # create a manifest for atleast 1 image
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest$arch > /dev/null 2>&1
+            ${ACCOUNT:-opensourcefoundries}/$D:latest$arch
 
     # create a manifest for atleast 2 images
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64 > /dev/null 2>&1
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm > /dev/null 2>&1
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64 > /dev/null 2>&1
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64
 
     # create a manifest for atleast 2 images
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64 \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm > /dev/null 2>&1
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
 
     # push the manifest that won the battle
-    docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest > /dev/null 2>&1
+    docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest
 
 }
 # build docker compose with the local yml files
