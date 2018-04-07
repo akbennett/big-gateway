@@ -1,0 +1,7 @@
+[submodule "simple-e2e/-b"]
+	path = simple-e2e/-b
+	url = git@github.com:akbennett/watchtower.git
+[submodule "simple-e2e/watchtower"]
+	path = simple-e2e/watchtower
+	url = git@github.com:akbennett/watchtower.git
+	branch = add-builder-dockerfile

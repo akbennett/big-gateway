@@ -17,7 +17,7 @@ function create_and_push_manifest {
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest$arch
 
-    # create a manifest for atleast 2 images
+    # create a manifest for atlearst 2 images
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
@@ -28,7 +28,7 @@ function create_and_push_manifest {
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
     docker manifest create --amend \
         ${ACCOUNT:-opensourcefoundries}/$D:latest \
-            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm64 \
+            ${ACCOUNT:-opensourcefoundries}/$D:latest-arm \
             ${ACCOUNT:-opensourcefoundries}/$D:latest-amd64
 
     # create a manifest for atleast 2 images
@@ -39,7 +39,7 @@ function create_and_push_manifest {
             ${ACCOUNT:-opensourcefoundries}/$D:latest-arm
 
     # push the manifest that won the battle
-    docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest
+    docker manifest push --purge ${ACCOUNT:-opensourcefoundries}/$D:latest
 
 }
 
@@ -47,6 +47,13 @@ function create_and_push_manifest {
 docker build -f compose-launcher/Dockerfile -t ${ACCOUNT:-opensourcefoundries}/compose-launcher:latest$arch .
 docker push ${ACCOUNT:-opensourcefoundries}/compose-launcher:latest$arch
 create_and_push_manifest ${ACCOUNT:-opensourcefoundries} "compose-launcher"
+
+# build watchtower
+pushd watchtower
+docker build -f dockerfile/Dockerfile -t ${ACCOUNT:-opensourcefoundries}/watchtower:latest$arch .
+docker push ${ACCOUNT:-opensourcefoundries}/watchtower:latest$arch
+create_and_push_manifest ${ACCOUNT:-opensourcefoundries} "watchtower"
+popd
 
 for D in simple*
 do
