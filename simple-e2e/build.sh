@@ -42,10 +42,11 @@ function create_and_push_manifest {
     docker manifest push ${ACCOUNT:-opensourcefoundries}/$D:latest
 
 }
+
 # build docker compose with the local yml files
-docker build -f docker-compose/Dockerfile -t ${ACCOUNT:-opensourcefoundries}/docker-compose:latest$arch .
-docker push ${ACCOUNT:-opensourcefoundries}/docker-compose:latest$arch
-create_and_push_manifest ${ACCOUNT:-opensourcefoundries} "docker-compose"
+docker build -f compose-launcher/Dockerfile -t ${ACCOUNT:-opensourcefoundries}/compose-launcher:latest$arch .
+docker push ${ACCOUNT:-opensourcefoundries}/compose-launcher:latest$arch
+create_and_push_manifest ${ACCOUNT:-opensourcefoundries} "compose-launcher"
 
 for D in simple*
 do
