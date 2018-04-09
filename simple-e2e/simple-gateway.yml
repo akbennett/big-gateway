@@ -67,9 +67,7 @@ services:
     image: ${ACCOUNT:-opensourcefoundries}/watchtower:latest
     read_only: true
     volumes:
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
     restart: always
 
 networks:
