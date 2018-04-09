@@ -50,6 +50,7 @@ create_and_push_manifest ${ACCOUNT:-opensourcefoundries} "compose-launcher"
 
 # build watchtower
 pushd watchtower
+git clone https://github.com/${ACCOUNT:-opensourcefoundries}/watchtower -b add-builder-dockerfile
 docker build -f dockerfile/Dockerfile -t ${ACCOUNT:-opensourcefoundries}/watchtower:latest$arch .
 docker push ${ACCOUNT:-opensourcefoundries}/watchtower:latest$arch
 create_and_push_manifest ${ACCOUNT:-opensourcefoundries} "watchtower"
